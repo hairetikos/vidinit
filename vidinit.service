@@ -1,0 +1,29 @@
+[Unit]
+Description=vidinit boot video splash
+DefaultDependencies=no
+After=systemd-modules-load.service
+Before=display-manager.service
+
+[Service]
+Type=forking
+RemainAfterExit=no
+# if needed:
+#ExecStartPre=-/usr/bin/chvt 1
+#ExecStartPre=-/usr/bin/setterm -cursor off -blank 0 > /dev/tty1
+ExecStart=/usr/bin/mpv --no-config --vo=gpu-next --gpu-context=drm --really-quiet --no-osc --no-osd-bar --no-input-default-bindings --no-terminal --loop-file=no /boot/video.mp4 &
+# if --vo=gpu-next --gpu-context=drm doesn't work for your GPU and setup, try other options such as:
+  # gpu
+  # fbdev2
+  # fbdev (older distros)
+  # directfb
+  # caca (ASCII)
+#ExecStartPost=-/usr/bin/setterm -cursor on > /dev/tty1
+StandardInput=tty
+StandardOutput=tty
+TTYPath=/dev/tty1
+TTYReset=no
+TTYVHangup=no
+TimeoutStartSec=0
+
+[Install]
+WantedBy=sysinit.target
