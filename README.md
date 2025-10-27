@@ -8,7 +8,7 @@ vidinit allows you to display a video with audio during the Linux boot process. 
 
 this is the initial conception, i will explore a solution to have it spawn the video possibly at pre-initramfs stage, or immediately upon initramfs
 
-the default behaviour may also cut the video short once the system has booted.  To make it wait, change `Type=forking` to `Type=oneshot`
+the default behaviour may cut the video short once the system has booted, this is the intended behaviour, the system boots in the background.  To make it wait, change `Type=forking` to `Type=oneshot`.  You can also loop a video until the system has booted with the `--loop` option.  See below for more options.
 
 ## Installation
 
@@ -28,7 +28,7 @@ the default behaviour may also cut the video short once the system has booted.  
 
 3. **Create the systemd service file**:
    ```bash
-   cp -av vidinit.service /etc/systemd/system/vidinit.service
+   sudo cp -av vidinit.service /etc/systemd/system/vidinit.service
 
 4. **Enable and test the service**:
    ```bash
