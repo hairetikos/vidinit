@@ -6,7 +6,9 @@ Play a full definition video (with sound) during Linux bootup.
 
 vidinit allows you to display a video with audio during the Linux boot process.  This is achieved using mpv and systemd to play the video early in the boot sequence.
 
-this is the initial conception, i will explore a solution to have it spawn the video possibly at ore-initramfs stage, or immediately upon initramfs
+this is the initial conception, i will explore a solution to have it spawn the video possibly at pre-initramfs stage, or immediately upon initramfs
+
+the default behaviour may also cut the video short once the system has booted.  To make it wait, change `Type=forking` to `Type=oneshot`
 
 ## Installation
 
@@ -72,9 +74,6 @@ ExecStart=/usr/bin/mpv --really-quiet --no-terminal --vo=fbdev2 --ao=alsa /boot/
 - `--volume=50` - Set volume level (0-100)
 - `--length=10` - Play only first 10 seconds
 - `--speed=1.5` - Adjust playback speed
-
-the default behaviour will also cut the video short once the system has booted
-to make it wait, change `Type=forking` to `Type=oneshot`
 
 **Example with loop**:
 ```ini
